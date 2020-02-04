@@ -60,3 +60,4 @@ AWS Migration Services
  DMS: Database Migration Service. Easier and managed DB migration service. 
  Server Migration: Migrate on-premises servers to AWS. 
  Snowball: Large scale data transfer. Use snowball appliance to move data to and from AWS cloud.(like peta bytes of data)
+ 
