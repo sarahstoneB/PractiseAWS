@@ -5,3 +5,43 @@ AWS Introduction
 •	10 years and these guys are the market leaders.
 •	AWS certification started in 2013
 •	AWS certification adds value, and is hot in the job field. 
+AWS Global Infrastructure 
+•	Edge Location 
+•	Availability Zone(AZ) 
+•	Region 
+AWS runs on this. 
+Not a service offering but this is the actual infrastructure that AWS has! 
+
+Region: 
+Physical location in the world where AWS resource exists, they have multiple Availability Zones
+ Availability Zone : 
+Consist of one or more discrete data centers/AWS facility area, each with redundant power, networking and connectivity, housed in separate facilities. 
+ The AWS Cloud operates 40 Availability Zones within 15 geographic Regions around the world, with nine more Availability Zones and four more Regions coming online throughout the next year. AWS keeps on adding them!!!! 
+ Edge Location:
+ CDN(Content Delivery Network) end points for Cloud Front. Place where data is cached.50+ edge locations and growing! 
+
+AWS Networking & Content Delivery 
+ VPC : Virtual Private Cloud is isolated cloud resources within AWS. Think of them as isolated Data centers.
+ Direct Connect: Dedicated network connection to AWS. Way of connecting to AWS without the need of internet. Helps the data transport from and to the AWS infra and secure line. 
+ Route 53: AWS DNS service.  DNS helps to convert the human readable address to numeric IP address.
+Default port number for DNS is 53
+ Cloud Front: Edge location is the place that caches the data. Example: Your data is stored somewhere in US location, if someone from India wants to use your data, the data can be cached in Mumbai so that no need to pull data from US location
+
+AWS Compute
+1.EC2: Elastic Compute Cloud. Virtual Servers in the Cloud. Popular service of AWS, virtualization concept
+2.EC2 Container Service: Run and manage docker(container virtualization) containers
+3.Elastic Beanstalk: Run and manage web apps. For developer, just upload the code and Amazon does the validation and provisions resources for that requirement.
+4.Lambda: Run the code without thinking/worrying about the servers. One of the powerful and expanding area AWS. -> Minimal/High level
+5.Lightsail: Launch and manage virtual private servers, new offering introduced in 2016 -> Minimal 
+
+AWS Storage
+1. S3: Simple Storage Service. Scalable storage in the cloud. Secure and highly scalable. Pay for what you use. Object based storage
+2. Elastic File System: Fully managed file system for EC2 instances. Block level storage. Think of it as NAS in the cloud for many EC2(Shared). 
+3.Glacier: File archival place, data access takes 2-4 Hours retrieval time. Used as for backup. Secure and low cost storage option for data archive and long time backup
+Storage Gateway: Hybrid Storage integration. The AWS Storage Gateway is a service connecting an on-premises software appliance with cloud-based storage to provide seamless and secure integration between an organization's on-premises IT environment and AWS's storage infrastructure
+
+AWS Database 
+ RDS: Relational Database Services consisting of many (mini)DB’s( Oracle, posgresql, MySQL and so on) in the cloud. Managed Relational DB services
+ DynamoDB: Managed Nosql DB in AWS. Non RDS. 
+ ElastiCache: In-memory cache to help the DB. Cache the data in Cloud to improve DB performance and to reduce DB load. 
+RedShift: Fast, simple, cost effective data warehousing solution from AWS.
