@@ -21,3 +21,42 @@ AWS Security & Identity
   AppStream: Low latency application streaming. 
   Elastic Transcoder: Easy to use Scalable media transcoding. Media file format conversations to be compatible for different devices. 
   SWF: Workflow Service for coordinating application components
+
+ AWS Developer Tools 
+  CodeCommit: Store code in private git repo. 
+  CodeBuild: Build and Test code(code compilations). 
+  CodeDeploy: Automate code deployments. 
+  CodePipeline: Release software using Continuous Delivery(CD)
+ 
+  Messaging 
+  SES: Email sending and receiving service
+  SQS: Message Queue Service
+  SNS: Push notification Service 
+ 
+ Mobile Service 
+  MobileHub: Build, test, run and monitor mobile applications. 
+  Cognito: User identity and app data synchronization. 
+  Device Farm: Test Android, iOS and Web apps on real devices in the cloud. 
+  Mobile Analytics: Collect, view and export app analytics. 
+  Pinpoint: Push notifications for Mobile devices. 
+
+ IoT 
+  IoT: Internet of Things. Big and innovative topic of AWS. Connected devices to the cloud.  Still expanding. 
+  A proposed development of the Internet in which everyday objects have network connectivity, allowing them to send and receive data
+ 
+ Game Development 
+  GameLift: Deploy and scale session-based multiplayer games. 
+ 
+ Business Productivity 
+  WorkDocs: Secure enterprise storage and sharing service. 
+  WorkMail: Secure email and calendaring service. 
+ 
+ Desktop & App Streaming 
+  WorkSpaces: Desktops in the cloud. 
+  AppStream2.0: Stream apps securely to any web browser.
+ 
+ Artificial Intelligence 
+ Lex: Build voice and text chatbots.
+ Poly: Turn text into life like speech. 
+ Rekognition: Search and analyze images 
+ Machine Learning: Build smart applications and quickly and easily. 
