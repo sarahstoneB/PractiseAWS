@@ -1,0 +1,7 @@
+Billing alarm
+Goto blling Dashboard > billing preferences >enable billing alerts >save preferences u will get billing.
+next goto cloud watch > alarms> create Billing alaram > set the threshold > > set the mailID >verify the mailID
+
+
+
+
