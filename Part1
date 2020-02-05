@@ -1,0 +1,23 @@
+AWS Security & Identity 
+1.IAM: Identity Access Management. Manage user access and encryption keys.(User management, group, role, password policies etc..)
+2.Inspector: Analyze application security. Inspect the EC2 instance by installing agents
+3.WAF & Shield: Web Application Firewall service. Filter the malicious web traffic. 
+4.Certificate Manager: Manage the ssl/tls certificates
+5.Compliance Reports: AWS Compliance reports on-demand. 
+6.Directory Services: Host and manage Active Directory.
+
+ AWS Management Tools 
+  CloudWatch: Monitor Resources and applications. 
+  CloudFormation: Create and manage resources with templates. 
+  CloudTrail: Track user activity and API usage. 
+  Config: Track resource inventory and changes. 
+  OpsWorks: Automate operations using Chef. 
+  Service Catalogue: Create and use standardized products.
+  Trusted Advisor: Optimize performance and security(Free tier and enterprise tiers)
+
+ AWS Application Services 
+  Step Function: Coordinate distributed applications. 
+  API Gateway: Build, deploy and manage API’s.
+  AppStream: Low latency application streaming. 
+  Elastic Transcoder: Easy to use Scalable media transcoding. Media file format conversations to be compatible for different devices. 
+  SWF: Workflow Service for coordinating application components
