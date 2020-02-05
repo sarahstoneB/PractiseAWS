@@ -1,0 +1,57 @@
+===============================================Elastic search==================================================
+Elasticsearch (ES) is one such NoSQL distributed database. 
+
+Elasticsearch uses Lucene StandardAnalyzer for indexing for automatic type guessing and for high precision.
+
+Every feature of Elasticsearch is exposed as a REST API:
+1.Index API: Used to document the index.
+2.Get API: Used to retrieve the document.
+3.Search API: Used to submit your query and get a result.
+4.Put Mapping API: Used to override default choices and define the mapping.
+
+Elasticsearch has its "own query domain-specific language" in which you specify the query in JSON format. 
+
+Elasticsearch APIs are directly related to Lucene and use the same name as Lucene operations. Query DSL also uses the Lucene TermQuery to execute it.
+
+===Cluster===
+A cluster is a collection of one or more servers that together hold entire data and give federated indexing and search capabilities across all servers. For relational databases, the node is DB Instance. There can be N nodes with the same cluster name.
+
+===Near-Real-Time (NRT)===
+Elasticsearch is a near-real-time search platform. There is a slight from the time you index a document until the time it becomes searchable.
+
+===Index===
+The index is a collection of documents that have similar characteristics. For example, we can have an index for customer data and another one for a product information. An index is identified by a unique name that refers to the index when performing indexing search, update, and delete operations. In a single cluster, we can define as many indexes as we want. Index = database schema in an RDBMS (relational database management system) — similar to a database or a schema. Consider it a set of tables with some logical grouping. 
+
+<<<In Elasticsearch terms: index = database; type = table; document = row>>>
+
+===Node===
+A node is a single server that holds some data and participates on the cluster’s indexing and querying. A node can be configured to join a specific cluster by the particular cluster name. A single cluster can have as many nodes as we want. A node is simply one Elasticsearch instance. Consider this a running instance of MySQL. There is one MySQL instance running per machine on different a port, while in Elasticsearch, generally, one Elasticsearch instance runs per machine. Elasticsearch uses distributed computing, so having separate machines would help, as there would be more hardware resources.
+
+===Shards===
+A shard is a subset of documents of an index. An index can be divided into many shards.
+
+===Mapping Type===
+Mapping type = database table in an RDBMS.
+
+Elasticsearch uses document definitions that act as tables. If you PUT (“index”) a document in Elasticsearch, you will notice that it automatically tries to determine the property types. This is like inserting a JSON blob in MySQL, and then MySQL determining the number of columns and column types as it creates the database table.
+
+===Benefits of using Elasticsearch:===
+1) Manages the huge amount of data: As a comparison to the traditional SQL database management systems that take more than 10 seconds to fetch required search query data, Elasticsearch can do that within 10 ms.
+
+2) Direct, Easy and Fast access: Documents are stored in a close proximity to the corresponding metadata in the index. This reduces the no of data reads and as a result increases the search result response.
+
+3) Scalability of the search Engine: As Elasticsearch has a distributed architecture it enables to scale up to thousands of servers and accommodate petabytes of data. The customers then need not manage the complexity of distributed design as it has been done automatically.
+
+When to use Elasticsearch? Some of the use cases of Elasticsearch are:
+
+>>Textual Search (searching for pure text)- Elasticsearch is primarily used where there is lots of text and we want to search any data for the best match with a specific phrase.
+>>Product search by properties and name (Text search and structured data)
+>>Data Aggregation- The aggregation’s framework helps provide aggregated data based on a search query. It is based on simple building blocks called aggregations, that can be composed in order to build complex summaries of the data. An aggregation can be seen as a unit-of-work that builds analytic information over a set of documents. The context of the execution defines what this document set is (e.g. a top-level aggregation executes within the context of the executed query/filters of the search request).
+>>JSON document storage- A JSON object with some data. It’s the basic information unit in ES. The document is a basic information unit that can be indexed.
+>>Geo Search- Elasticsearch can be used to Geo-localize any product. For example: for all the restaurants that serve pizza within 30 minutes.
+>>Auto Suggest: It allows the user to start typing few characters and receive a list of suggested queries as they type.
+>>Auto Complete: It helps in autocompleting for the search by completing a search box on partially-typed words, based on the previous searches.
+
+***To summarize, each index can be split into multiple shards. An index can also be replicated zero (meaning no replicas) or more times. Once replicated, each index will have primary shards (the original shards that were replicated from) and replica shards (the copies of the primary shards).
+***By default, each index in Elasticsearch is allocated 5 primary shards and 1 replica which means that if you have at least two nodes in your cluster, your index will have 5 primary shards and another 5 replica shards (1 complete replica) for a total of 10 shards per index.
+

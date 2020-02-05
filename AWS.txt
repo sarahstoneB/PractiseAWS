@@ -1,0 +1,83 @@
+Netflix is using AWS web services
+more list - https://www.contino.io/insights/whos-using-aws
+
+Cloud computing - It is the use of remote servers or computers on the internet to store, manage and process data rather than a local server or your personal computer.
+
+List of domains in AWS
+1.Compute 
+2.Migrate 
+3.Security & identity, Complaince
+4.Storage
+5.Networking and content delivery
+6.Messaging
+7.Database
+8.Management tools
+
+Storage vs Database - We can't store image in a database , so we store image path in the databse and keep file in storage
+
+=====AWS compute services=====
+
+EC2(Elastic compute cloud) - simple a rock server
+
+Lambda - not for hosting web application, but used for background tasks
+Ex. When we upload image, image compression will be done by Lambda (it works by event trigger mechanism)...which is like background task and then compressed image will be stored in the file systems like S3
+
+Elastic beanstalk - you can host application. It's advanced EC2, you don't have to configure the environment i.e. just choose if it's PHP, JAVA or Python unlike you manually create environment in EC2
+Difference between EC2 and beanstalk is beanstalk has limited number of environments
+Firewalls will be managed by beanstalk...much more automated things
+
+Elastic load balancer - it will distribute the load among instances via elastic load balancer protocol
+
+AutoScaling - ex. if combined CPU usage goes below/above some level...it will launch new instance or remove instance i.e autoscaling and elastic load balancer goes hand in hand
+
+=====AWS storage services=====
+
+S3 - simple storage service - object oriented file system
+
+CloudFront - CDN
+
+EBS - Elastic block storage - acts like hard drive to EC2...1 EC2 can be connected to many EBS volumes, but vice versa not true
+
+Glacier - data backup...cheap data storage...retriving time would be more
+
+Snowball - physical data transfer to AWS from private datacenter...when u have huge amount (petabytes) of data. no point in  uplading it. Just give it to AWS via physical drive and they will upload
+
+Storage gateway - Provide seamless integration between your on premise(private datacenter) servers and the AWS infrastruture
+
+=====AWS database services=====
+
+1. RDS - relational database management service (it's not a database) - updating, patching, etc
+2. amazon aurora - based on MySQL, but better performance than MySQL(aurora is 5x MySQL) - code works exactly same
+3. DynamoDB - NoSQL/Non relational db management service, grows automatically with data size
+4. ElastiCache - setup, manage & scale a distributed cache-in environment in the cloud i.e. frequently asked data can be retrived from elastiCache
+5. RedShift - fully managed petabyte-scale data warehouse service, analytics tool for stored data
+
+=====AWS networking services=====
+
+1. VPC - for VPN connections
+2. Direct connect - it's a line using which you can directly connect to the AWS infrastructure instead of using internet
+3. Route 53 - it's a DNS
+
+=====AWS management services=====
+
+1. Cloud watch - it's a monitoring tool, watch all resource things...alarms can be triggered 
+2. Cloudformation - 
+3. CloudTrail - logging services (can logged all API requests)
+4. CLI - CLI for AWS GUI
+5. OpsWorks - confg mgmt tool
+6. Trsuted advisor - personal assistent (to reduce expenses)
+
+=====AWS security services=====
+
+1. IAM - identification and authentication mgmt tool 
+2. KMS - key mgmt service (public key & private key)
+
+=====AWS application services=====
+
+1. SES - bulk emailing service 7 automation too
+2. SQS - queuing service which acts as a buffer
+3. SNS - simple notification service (send notifications to related AWS services)
+
+*****Link to slides --> https://www.slideshare.net/samthecloudguy ******
+
+

@@ -1,0 +1,13 @@
+SOAP vs REST API
+https://dzone.com/articles/difference-between-rest-and-soap-api
+
+API gateway
+https://medium.com/@gabrymartinez/stupid-question-of-the-day-what-is-an-api-gateway-and-what-it-has-to-do-with-a-serverless-model-2acee3e3eeba
+
+What are Microservices ?
+https://www.youtube.com/watch?v=gfWr2_H39N0
+
+Serverless
+https://www.youtube.com/watch?v=6wDQqWRh2uI
+https://serverless.com/framework/
+

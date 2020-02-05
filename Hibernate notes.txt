@@ -1,0 +1,133 @@
+>>>JPA vs Hibernate
+
+>>>Hibernate helps in the Model of MVC structure
+Model is divided into 3 parts...1.Business logic 2.DAO(DB access object)...3.extra services like sec.,login,JNDA,etc
+
+DAO talks with the DB
+
+>>>No cache support in JDBC, we have that support from ORM tools like EJB 
+JDBC is DB dependent...difficult if u change from MySQl to oracle
+
+>>>without app server EJBs can't run...for running hibernate we only need JDK,JRE and hibernate .jar files
+
+>>>Alter to EJBs is SPRING...it provides all the services for business components...spring just requires spring .jar and JRE,JDK.
+
+>>>Hibernate is specially designed for the DAO part...
+HQL - hibernate query language (DB independent queries)
+
+>>>all the hibernate exceptions are runtime...no compile time exceptions
+
+>>>JDBC - table relational mapping
+Hibernate - object relational mapping
+we have annotation support too in hibernate
+
+>>>to do some CRUD ops we need to pass an object
+
+>>>States of objects -->
+1.Persistent 
+2.Detached
+3.Transient(normal java object)
+
+Objects(in transient state) ---> Hibernate(attaching to hibenate makes it persistent) ---> Database(DB/permanent state)
+            |
+      if we | remove this hibernate attached object 
+            |
+       Detached state
+
+
+>>>(persistent state).commit() --> move to DB
+
+>>>Required for Hibernate App -->
+1.pojo.class
+2.mapping file
+3.config file
+4.test.class
+
+========write POJO.class=======
+1.it should contain req no of properties which we want to include into table
+2.default constructor(public class) is mandatory
+3.for every property should have setters and getters and their access should be public
+4.other than above 3 we can have extra constructor and methods
+
+to map this details to the DB...we need mapping file
+<hibernate-mapping>
+   <class name="" table="">
+	<id name="" />
+	<property name="" column="" />
+	.
+	.
+	.
+   </class>
+</hibernate-mapping> 
+
+>>>hibernate.cfg.xml --> config file 
+<hibernate-configuration>
+  DB driver properties
+  DB connection pool props
+  hibernate commands
+  mapping files attachment
+  <Session-factory>
+	<property name="">driver name</property>
+	<property name="">url</property>
+	.
+	.
+	.
+  </Session-factory>
+</hibernate-configuration>
+
+>>>Configuration cfg = new Configuration(); --> load hibernate.cfg.xml...using cfg.config()
+
+SessionFactory sf = cfg.buildSessionFactory();
+Session s = sf.openSession(); --> similar to JDBC connection object
+s.save(<pass the object>); -->object in persistent state
+
+s.beginTransaction().commit(); --> added to table
+
+s.evict(<your class name>); --> will remove obj from persistent state and garbage collector will collect the object and we should do this after we moved data into DB i.e. after .commit();
+
+>>>Auto DDL ops (DDl ops --> create,add,delete,etc.) --> automatically we can create table into DB using cmd hbm2ddl.auto 
+
+>>>for every class (whose obj we want to add into DB) has it's own mapping file
+and then we mention this mapping files into "one"
+ config file i.e. hibernate.cfg.xml
+
+for auto DDl we have 4 options --> create(drops existing table and create same named fresh table),update(creates new table if not in DB and we can alter table if table exists),validate(will check mapping schema against table schema) and create-drop().
+
+>>>=====CRUD operations=====
+[checkout all the methods for doing CRUD ops]
+1.insert ops
+  a.save()
+  b.persist()
+  c.saveorupdate()
+2.update ops
+  a.update()
+  b.merge()
+3.delete ops
+  a.delete()
+4.select ops
+  a.get() --> will return Object which we have to type               cast
+  b.load()
+For select ops we don't need "transaction method"
+
+>>>=====PK auto generator=====
+
+we can write our own "custom generator"
+
+>>>HQL --> for CRUD ops
+1.insert --> only one table to another table...not user to table
+this limitation is only for "insert" operation
+
+HQL queries are obj oriented...and are DB independent
+
+>>>Criteria is only for "select" ops
+>>>hbm2ddl.auto --> will take action on DB as per the parameter provided...ex.create will simply keep on creating new tables or update will only add new changes keeping the previous things as it is.
+
+>>>show_sql will show hibernate queries in console if set "true"
+
+>>>Natural vs Surrogate key
+Ex.let's say we are doing the regn process, so in that case if we take an email ID from user (which we know won't be repeated)..so it will the "NATURAL" key...this email ID has some proper business significance too...while ID (viz is just serial no kinda thing) does not have any business significance...
+But let's say we don't know (unlike email) which column we should make as PK holder then we can make altogether new column which will act like PK...called as a "SURROGATE" key
+IN SUMMARY --> emailID is natural key and if sr no (ID --> 1,2,3...) has any business significance will be surrogate key...
+
+>>>Entity vs Value Object --> associate the value object to a entity
+>>>

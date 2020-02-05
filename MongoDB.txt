@@ -1,0 +1,24 @@
+=====================MongoDB notes=====================
+it's a document-oreinted NoSQl and no RDBMS DB...instead of storing in tables we store data in the form of documents, collections and object format like JSOn format 
+it's faster than SQL coz it's built on asynchronous working
+
+The data types we have in JS are there in the mongoDB
+group of documents called collections
+
+NoSQL v/s SQL
+1.Collections v/s table
+2.Document v/s row
+3.Field v/s column
+collection is not strict about what goes in it...i.e. it's schema less
+ 
+who's age > 16 
+ {"age" : {$gt : "16"}}
+ 
+Projection means selecting only necessary data rather thamn selecting whole of a document data i.e showing only some fields and not all the fields of a document
+
+>>Indexing is needed coz it takes time to find the data... --> .ensureIndex({"key" : "value"}) --> do indexing for the field which is unique
+we can drop index by .dropIndex()
+
+.aggregate()
+
+To take the backup of ur DBs...use mongodump.exe and to restore deleted(but backed up somewhere) DBs use mongorestore.exe

@@ -1,0 +1,4 @@
+Python pickling i.e. serializing python objects in memory to store onto disk 
+https://www.datacamp.com/community/tutorials/pickle-python-tutorial
+
+Use Pool for multiprocessing which automatically takes up cores to perform parallely (refe above pickling link's last part)

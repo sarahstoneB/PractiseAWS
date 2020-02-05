@@ -1,0 +1,281 @@
+languages like javascript, jscript, actionscript follow ECMAScript standards & specifications
+ES5 = ES2009
+ES6 = ES2015
+Javascript is by default non-blocking i.e. it won't wait for async processes hence we need to "await" for async ops. As javascript keeps async task aside on queue by using async-await we are forcefully asking it to wait
+Lexical(local) scoping => scopes in block
+Ex. {
+    var x = 10
+}
+above var x has scope between {}
+
+const can be changed if scope is changes
+Ex. 
+`
+const pi = 3.142
+pi = 10 //not possible
+const pi = 10 //not possible
+func = function(){
+    const pi = 10 //possible
+}
+`
+
+ES6 Features
+1. let & const keyword
+2. default params
+function func(num=10){
+
+}
+3. Spread operator
+var a1 = [1,2,3]
+var a2 = [a1,4,5,6]
+a2 ==> [[1,2,3],4,5,6]
+
+var a3 = [...a1,4,5,6] ==> a3 = [1,2,3,4,5,6]
+4.Template Strings - looks elegant
+`abc dtrct ${<your_variable/expression>}`
+5.New String methods were introduced 
+Ex. repeat, startsWith, endsWith, includes, etc
+6.Object literal improvements
+var ninja = {            var ninja = {
+    name : name              name,
+    belt : belt   -->        belt
+}                        }
+7.Fat arrow functions ==> allows to bind "this" lexically
+a.bind this 
+var obj = {
+    name : "abc",
+    func(){
+        window.setInterval(function(){
+            console.log(this.name)      ----> won't log anything coz "this" refers to function passed to window.setInterval
+        }, 1000)
+    }
+}
+
+above prob can be solved by 
+var obj = {
+    name : "abc",
+    func(){
+        var _this = this;
+        window.setInterval(function(){
+            console.log(_this.name)      ----> now its referring to the "obj" & will log "abc"
+        }, 1000)
+    }
+}
+
+BUT INSTEAD OF ABOVE USE FAT ARROW function
+var obj = {
+    name : "abc",
+    func(){
+        var _this = this;
+        window.setInterval(() => {
+            console.log(this.name)      ----> now its referring to the "obj" & will log "abc" only
+        }, 1000)
+    }
+}
+
+8.Sets - new Data structure to store unique values
+var s = new Set()
+9.Generators - func that can be play & pause by us
+function* generator(){
+    //definition of generator
+}
+as this returns an "iterator"...can be used to loop through
+
+###Javascript executes from left to right...explained as follows###
+Ex. yield console.log(x);  -> it will console.log and then yield will execute which stops the execution of generator
+
+10. static keyword for class...no need to instanciate where we need object creation in order to call other methods
+class User{
+    constructor(name){
+        this.name = name
+    }
+
+    static noOfUsers(){
+        console.log("Returning users");
+    }
+}
+
+User.noOfUsers()
+
+11. extends keyword
+
+class Member extends User{
+    constructor(name, type){
+        super(name);
+        this.type = type;
+    }
+}
+
+12. Map - new data structure, key-value based structure
+
+Map {"key1" => "value1", "key2" => "value2"}
+
+13. Promises --> Replacement for callbacks
+
+There are 7 data types in javascript
+
+Cloning vs Deep cloning of objects (use lodash methods for deep cloning)
+
+Garbage collection javascript
+Memory management in JavaScript is performed automatically and invisibly to us
+setting object = null...free ups the memory
+https://javascript.info/garbage-collection
+Symbol is a primitive type for unique identifiers.
+Symbols are created with Symbol() call with an optional description.
+
+Arrow functions have no “this”
+Arrow functions are special: they don’t have their “own” this. If we reference this from such a function, it’s taken from the outer “normal” function
+
+The special primitives null and undefined are exceptions and have no methods
+
+JSON.stringify to convert objects into JSON.
+JSON.parse to convert JSON back into an object
+JSON.stringify can be applied to primitives as well
+// a number in JSON is just a number
+alert( JSON.stringify(1) ) // 1
+// a string in JSON is still a string, but double-quoted
+alert( JSON.stringify('test') ) // "test"
+alert( JSON.stringify(true) ); // true
+alert( JSON.stringify([1, 2, 3]) ); // [1,2,3]
+
+JSON is data-only cross-language specification, so some JavaScript-specific object properties are skipped by JSON.stringify
+let user = {
+  sayHi() { // ignored
+    alert("Hello");
+  },
+  [Symbol("id")]: 123, // ignored
+  something: undefined // ignored
+};
+alert( JSON.stringify(user) ); // {} (empty object)
+
+=====Custom “toJSON”======
+Like toString for string conversion, an object may provide method toJSON for to-JSON conversion. JSON.stringify automatically calls it if available.
+
+>>>Creating object
+    var myCar = new Object();
+    myCar.speed = 50;
+    myCar.color = "red";
+    myCar.drive = function(){
+      console.log("Now driving...");
+    }
+    
+    =====OR JSON formatted=====
+    
+    var myCar = {
+      speed : 50;
+      color : "red";
+      drive : function(){
+        console.log("Now driving...");
+      } 
+    }
+    
+    
+    =====OR Factory pattern=====
+    
+    var Car = function(speed, color){
+    	var temp = {};
+	temp.speed = speed;
+	temp.color = color;
+	
+	return temp;
+    }
+    
+    var myCar = Car(50, "red");
+    
+    =====OR (prototype pattern)=====
+    var Car = function(){};
+    Car.prototype.speed = 0;
+    Car.prototype.color = "blank";
+    Car.prototype.drive = function(){
+    	console.log("Now driving...");
+    };
+    
+    var myCar = new Car();
+    myCar.speed = 50;
+    myCar.color = "red";
+    
+    
+>>>Creating constructor
+var Car = function(speed, color){
+	this.speed = speed;
+	this.color = color;
+	this.drive = function(){
+		console.log("Now driving...");
+	}
+}
+
+var myCar = new Car(50, "white");
+>>>Javascript has no formal support for class creation
+   In javascript every function exp is a constructor.
+   
+>>>Javascript is single threaded...i.e.only one task can run at a time.
+AJAX is non-blocking...it's not multi-threading
+
+>>>Closures & Promises in javascript...
+
+Promises are wrappers around async functions
+Ex. let p = new Promise((resolve, reject) => {
+	setTimeout(function(){
+		resolve("resolved");
+	}, 1000)
+});
+
+
+callback hell = terminology used
+concurrency - multiple tasks running at same time
+
+Synchronous(blockong) vs Asynchronous(non-blocking or event-loop) 
+Languages like ruby, python, etc handles things synchrounously and that's why they are multi threaded otherwise if single threaded that single thread would be blocked i.e each thread work synchronously.
+In Javascript, single threaded does thing asynchrounously
+Ex. In javascript you can block things by alert/prompt where every other execution will be block i.e 1 single thread will be blocked
+
+Promises are thin wrapper around callbacks
+In promise we ultimately do callbacks in .then()
+
+Async-await (layer of syntax over promise+generator..introduced in ES7)
+1.next to await there has to be promise always
+2.now we can use try/catch & for/while constructs inside async-await function
+3.await promise pauses the execution exactly like generator yield (as async await is implementation of promise + generator)
+4.async function always return a promise i.e you can await async function
+5.Promise.all() can be used with async-await Ex. await Promise.all(list_of_promises)
+6.Using await in map/filter might not do what you expect!
+7.You can use async-await in chrome,firefox,node and for rest use babel
+
+==========CommonJS==========
+1.exports-require functionality was provided by commonjs
+2.modular development came into picture as we can divide code using exports-require
+3.CommonJS is a specification and we need some loaders like SystemJS, RequireJS & so on to implement it
+4.RequireJS, SystemJS are the module loaders
+5.CommonJS is one of the formats to load the JS modules using exports-require, there are other module loading formats Ex.AMD,ECMAScriptModule(esm),Global shim module format(global),etc
+AMD,UMD do more than CommonJS
+
+=====Closure=====
+A closure is an inner function which has access to outer function's variable, outer functions parameters, it's own variable, global variables too. 
+Closure is created by adding function inside another function
+
+Javascript primitive vs ref data types
+1. Primitives - String, Number, Boolean, Undefined, None, Symbols => stored on STACK (fast to access but low memory compare to heap)
+2. Ref - Objects, Arrays => stored on HEAP (slow to access but high memory compare to stack)
+3. Heap is randomly stored in memory but the address/pointer is stored on stack only
+
+async-await as the name suggest when there is async you need to wait
+as JS is non-blocking i.e it doesn't wait for async
+Async calls will be executed totally after all sync calls 
+fetch() api return promise
+With async await, code looks sync in async world coz its waiting
+JS single thread = single call stack = one thing at a time
+Event loop triggers when the call stack becomes empty and when it triggers it loads tasks from task queue one by one 
+
+<script src="file.js">
+  alert(1); // the content is ignored, because src is set
+</script>
+
+Logical operators 
+The OR || operator does the following:
+>Evaluates operands from left to right.
+>For each operand, converts it to boolean. If the result is true, stops and returns the original value of that operand.
+>If all operands have been evaluated (i.e. all were false), returns the last operand.
+>A value is returned in its original form, without the conversion.
+>In other words, a chain of OR "||" returns the first truthy value or the last one if no such value is found.
+>The rules above are similar to OR for AND. The difference is that AND returns the first falsy value while OR returns the first truthy one.
+

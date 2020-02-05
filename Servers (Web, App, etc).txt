@@ -1,0 +1,14 @@
+https://www.codementor.io/php/tutorial/nginx-node-js-vs-apache
+https://stackoverflow.com/questions/16770673/using-node-js-only-vs-using-node-js-with-apache-nginx --> nginx in front of node app
+https://medium.com/@swayamraina/webservers-vs-applicationservers-34be2b49b1eb --> Web server vs App server
+https://stackoverflow.com/questions/9462356/can-we-say-node-js-is-a-web-server --> Nodejs web server
+**https://www.youtube.com/watch?v=Jsmeh7q9Qv4 --> Setup nginx as reverse proxy for node
+Top 4 web servers --> https://opensource.com/business/16/8/top-5-open-source-web-servers
+https://www.reddit.com/r/node/comments/6e0d3w/nodejs_vs_nginx/ --> Nginx in front of node
+NGINX setup --> https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
+Node setup --> https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04
+***nGINX tut --> https://www.youtube.com/watch?v=XhgUClE5uC0
+**Setup prod node app -- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
+**Setup prod node app -- https://www.digitalocean.com/community/questions/how-to-run-node-js-server-with-nginx
+** SSL nginx --> https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04(not used yet)
+** SSL nginx --> used this method --> https://www.youtube.com/watch?v=m9aa7xqX67c

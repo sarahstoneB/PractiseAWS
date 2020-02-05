@@ -1,0 +1,56 @@
+>>>Most browsers don't support ES6 imports hence we need to bundle our all js code into one single js file and then render into HTML...hence webpack(bundles all assets into single file and then uses into HTML)
+
+>>>ES6 ---(Babel)---> ES5
+
+>>>Virtual DOM(react's DOM in js format viz is really fast) representation of actual DOM(very slow), while re-rendering it will compare the old virtual DOM and new virtual DOM...and then only re-render the changes. 
+
+npx vs npm 
+npx - npm package runner - doesn't download the package
+npm - downloads package and then we use it 
+
+Types of components
+1. Stateless/Functional/Dumb/Presentation comp
+>this is not available
+>return only html i.e. jsx
+>we might wonder that when we import React in function comps, React isn't actually gets used...no...
+Ex. return (<h1>Hello world</h1>) ---> return (React.createComponent(h1, null, 'Hello world'))
+introduction of "Hooks" allows the use of state and other react features inside functional comp and with hooks there are no breaking changes and it's 100% backward compatible
+2. StateFul/Class/Smart/Container comp
+
+With the introduction of "Hooks" --> types of comp ==> Functional vs Class 
+
+props vs state
+1.props - passed from outside the comp
+props are immutable i.e inside comp we cannot do props.name = 'abc'
+In fucn comp --> available as props.<prop_name>
+In class comp --> available as this.props
+2.state - managed by comp and private to the comp  
+state is mutable in immutable manner
+
+
+JSX concept
+1. Not only to write React apps
+2. Ultimately gets converted to what browser will understand
+3. class --> className & for --> htmlFor coz class is reserved for es6 classes and for reserved for for loop
+4. camelCasing for properties like onclick --> onClick
+
+setState() is async method so we can pass callback to the setState() ex. setState({count : 1}, () => {.....}) if we want to execute that after state has been set
+when you want to update state based on prev state or props pass function (this fucntion has access to previou state and props) to setState((prevState, props) => ({count : prevState.count + 1}))
+
+Destructuring the props & state
+1. const obj = {name : "abc", age : 12}
+const {name, age} = obj
+In fucntional comp we do destructuring outside return and in class inside render() & just outisde return
+
+Binding event handlers --> watch 14th video of ReactJS 43 
+
+List rendering --> MUST watch video 17th, 18th, 19th video of ReactJS 43 
+
+What is babel and babel presets ?
+1.a preset is a set of plugins used to support particular language features Ex. JSX of react needs to be converted to the ES5 javascript
+https://www.fullstackreact.com/articles/what-are-babel-plugins-and-presets/
+
+How webpack works ? --> https://medium.com/ag-grid/webpack-tutorial-understanding-how-it-works-f73dfa164f01
+In order to use Babel, we need to use the Babel Loader. Loaders are how Webpack can process content other than JavaScript. With Loaders we can get Webpack to process many types of files — CSS, Images, TypeScript and ES2015 code and so on.
+
+

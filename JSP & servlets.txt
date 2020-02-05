@@ -1,0 +1,162 @@
+>>>Tomcat creates the request and response object every time we try to access it...but it creates the servlet object once...rather it will create the treads of the servlet
+
+>>>HTTP --> stateless protocol i.e it don't remember the parameter values we pass...hence we create "session"
+
+>>>Tomcat implemented...tomcat specific???...what does that mean...ex. it provides session object, context object,etc...how tomcat provides?
+
+>>>init() & service()...runs before the doGet() & doPost() method
+init() - only once but service() - executes when new req comes
+
+>>>                 first call to servlet
+                              |
+                              |
+                              |
+                    [init(ServletConfig)]
+                              |
+                              |
+                              |
+                          service()
+                              |
+                      ________|_________
+                     |                 |
+                  doGet()             doPost()
+
+
+
+>>>                 subsequent calls to servlet
+                              |
+                              |
+                              |
+                              |
+                              |
+                              |
+                              |
+                          service()
+                              |
+                      ________|_________
+                     |                  |
+                  doGet()             doPost()
+
+>>>when service() method is called...along with it request and response objects are passed
+
+>>>destroy() is called when the project is undeploying or server is stopping
+
+>>>imp packages --> javax.servlet & javax.servlet.http
+
+>>>HTTP is used for the comm b/w client & server
+
+>>>small details of the 8 HTTP methods 
+
+>>> <jsp:include page-"xyz.html/abc.jsp" />
+
+>>>Servlet is a java class processed on the server...that java class generates HTML that is returned to browser...servlet can read data from HTML form...at high level....it's similar to JSP
+
+=================JSP & Servlets notes============
+
+1.Servlets don't have "main" method...rather it has some othe methods for the execution.
+
+2.Why JSP if servlets can do the things...coz printing all the stuffs which we see on the HTML page...we can't do that using servlet...printing every line
+
+3.Every JSP is converted into java class by server...ex.
+<%...%> --> the code inside this goes into thr doGet() method...hence we can't put method inside <%...%> this
+
+4.JSTL --> java code represented in the xml format
+
+5.Servlet is a small java program that will run on the web server(Tomcat) or app server (JBoss)...servlets receive and respond to req from web clients,usually across HTTP
+
+6.using servlets we can collect inputs from the users thru the web pages forms and save it to DB...get the records from a DB and present to the user...can also create pages dynamically
+
+7.Servlet Life cycle:
+1.load servlet class
+2.create servlet instance
+3.call init();
+4.call service();
+5.call destroy(); --> called once 
+
+8.Server is basically a computer program that provides the services to the other computer program...
+
+9.App server vs Web server
+app server contains the web server + EJB container (can be used for servlet,jsp,struts,jsf.ejb,etc)
+
+App server basically provides the app level services like connection poolong, msg service, transaction support,etc
+
+while web server supports only HTTP content
+
+App servers --> JBoss, GlassFish(sun microsystems), Weblogic(oracle), WebSphere(IBM),etc
+
+10.Web server can support jsp and dynamic web pages...web server contains web/servlet container...can be used for servlet,jsp,jsf,struts...BUT NOT FOR EJBs
+
+11.Web server --> tomcat,jetty,resin,lighttpd,etc
+
+12.jar cf xyz.war * --> will create the WAR file
+
+==============================JSP notes (durga software)=============================
+1.J2SE
+we can build
+a.standalone app - ex.calculator
+b.client server app (using sockets and serverSockets)
+
+2.J2EE
+a.web app - here we can use JSP, taglib, servlets, filters,etc
+b.enterprise and distributed app - ex.if we want to book train (IRCTC) from redbus app...that can be achived using EJBs and J2EE...assuming both redbus and IRCTC are built on java
+c.Interoperable app - if enterprise app are built on different technologies like redbus on java and IRCTC on .NET and here we communicate using XML or JSON
+(we can use core JAX for this)
+
+Servlets are server side java technology and they talk using HTTP protocol...browser send data in HTTP form which then converted into java beans by server and then passed to servlet
+
+we follow MVC arch here...for JSP apps also
+V - using HTML,CSS,JS(browser side validation),etc
+C - servlets...or instead of servlet we can use JSPs too...else we move to structs,spring MVC,etc....C will read data and will send to the M
+M - business layer + DAO (after performing the ops business layer will send the data to the DAO to store into DB)
+
+Two servlets can talk using three methods
+1.getServlet("<servletName>") - getServletContext() will create a ServletContext object - not recommended
+2.RequestDispatcher - .forward() and .include() [will include the o/p of the servlet]    -    using URP pattern[getRequestDispatcher()]   or servlet class name[getNamedDispatcher()]
+3.sendRedirect
+  
+>>>Writing a servlet
+1.Servlet (interface) - have to implement all 5 methods
+2.Generic servlet(abstract class) - 4 are already implemented...only service(ServletRequest, ServletResponse) we have to implement
+3.HttpServlet (abstract class) - we can override doGet() and doPost() 
+
+we can use any of the above 3
+
+ServletConfig [<init-param>...</init-param>] vs ServletContext [<context-param>...</context-param>]
+
+garbage collector can take care of objects but not the resources
+
+Filters - for validations  --> IMPORATNT
+Listeners - for sessions   --> IMPORATNT
+                                                           
+                                                           
+                                                           =====JSP=====
+JSPs will execute on server and their output will be reflected on browser..and JSPs are used to generate dynamic pages..Javascript will execute on client side
+ 
+<%!  _jspInit()   %> -->    init()
+<% ...  %>           -->   service() 
+<%!  _jspDestroy()   %> -->    destroy()
+
+JSP --> servlet  --> sevlet class  --> servlet container
+
+<%=.....%>  == out.println()
+
+if you put .jsp extension and you don't have any java code with your HTML code..it will elad to process delay due to JSP --> servlet  --> sevlet class  --> servlet container
+
+JSP has built in objects
+1.request
+2.response
+3.session
+4.context
+5.page
+6.exception
+7.out
+8.config
+9.pageContext
+[no need to instatiate]
+
+>>><jsp:include page="" />  --> if we make changes into included file...this technique will reflect the changes by reloading the        
+                                included file 
+>>><@ include file="" />    --> if we make changes into included file...this technique won't reflect that...so this is for static only
+                                i.e it will load only once and the same content it will load forever
+                                
+>>>response.sendRedirect("<page.jsp>") --> we can't expect request into page.jsp...for this we need to use RequestDispatcher 

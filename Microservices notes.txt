@@ -1,0 +1,140 @@
+====================Microservices architecture====================
+In monolithic arch all the components are tightly coupled i.e. all the components should be present in order to execute full application.
+all the components are dependent on each other
+
+Monolithic arch is simple to develop compare to microservice
+
+In order to scale-up the application in monolithis we need to run multiple instances of same package i.e. even if we want to scale-up particular part of the app as it's tightly coupled we have to run whole app on other servers
+
+In case of monolithic, If we want to update one part of app we have to deploy whole app again and failure of one component leads to the failure f whole app 
+
+In microservice arch, all the microservices communicate using REST APIs and each microservice can have it's own technology
+When client makes request it goes through API gateway and whoever has access to API gateway is now connected to all the services
+
+=====REST API=====
+API stands for "application program interface". It's just a documented method of interacting with someone else's service. For example, Google has an API for Gmail. And an API for Calendar. And APIs for just about everything else they do. They're pretty good at them, actually.
+
+If you want to interact with someone else's service, you generally use an API. It sure beats calling Jawbone up on the phone and saying "oh hey, can you email me my activity data for the last month? Thanks".
+
+REST is just a pattern for making APIs. I'd tell you what it stands for, but it doesn't matter. It's just a standard pattern for naming resources that a service provides.
+
+In the Gmail API example, you can interact with your email drafts. To do this, Google follows the REST pattern by giving you a url that looks like the below url. (Side note, almost all REST APIs use HTTP. They don't have to, but all of the ones that matter do.)
+
+https://www.googleapis.com/gmail/v1/users/userId/drafts
+
+Want to list your drafts? Send a GET request to that url.
+Want to create a draft? Send a POST request to that url.
+
+Want to read a specific draft? Send a GET request to the url:
+
+https://www.googleapis.com/gmail/v1/users/userId/drafts/draftId
+
+Want to update your draft? Send a POST request to the url above.
+Want to delete your draft? Send a DELETE request to the url above.
+
+What if you wanted to do all of the the same actions (list, create, read, update, delete) to a different resource, say Gmail Labels?
+
+Well, because they're using the REST pattern for their API, you can easily see the pattern for listing, creating, reading, updating, and deleting Labels. It's just at a different URL:
+
+https://www.googleapis.com/gmail/v1/users/userId/labels
+
+So what's a REST API? It's a standard pattern for an interface for another service that you can use programmatically (from a computer program).
+
+REST is a way to describe how the architecture of the Web—and other systems like it—is different.
+
+The Web is an information network on top of the Internet, accessible through your browser. It has a different architecture than other computer systems in many ways.
+
+REST is an architectural style to design systems like the Web. The main defining characteristic of REST are the four rules of the uniform interface. By definition, REST APIs are APIs that follow these four rules.
+
+Rule 1: Offer access through resources.
+
+In typical computer systems, clients and servers exchange commands: do this, do that. Suppose we want to model a to-do list in a non-REST way. In a technical language, that might look like this:
+
+NOT REST
+
+/changeTodoList.php?item=35&action=changeTitle&title=new_title
+Note how this is indeed an instruction: change something.
+But a “changeTodoList” is not a thing, it's not a resource.
+
+In the REST architectural style, servers only offer resources. Resources are conceptual things about which clients and servers communicate.
+REST
+
+/todolists/7/items/35/
+This above thing is not a command, it is the address of a resource, a thing.
+You can then use this address to manipulate the to-do list using standard operations, instead of interface-specific commands.
+
+Rule 2: Represent resources by representations.
+
+A resource is a thing—and we can describe those things in different formats. For instance, humans might want to see an HTML version, which your browser transforms into a readable layout. But sometimes, interfaces on the Web are used by machines, too. They need a different format, such as JSON.
+
+In a non-REST way, different formats have different addresses:
+NOT REST
+
+browser: /showTodoList.php?format=html
+application: /showTodoList.php?format=json
+The problem is then that systems using different formats cannot communicate with each other, because they use different addresses for the same things!
+
+In a REST system, addresses identify things, not formats, so all systems use the same address for the same thing. How can they get different formats then? They explicitly ask for it!
+REST
+
+browser: “I want /todolists/7/, please give me HTML.”
+application: “I want /todolists/7/, please give me JSON.”
+The technique that enables this is called content negotiation.
+
+Rule 3: Exchange self-descriptive messages.
+
+In a REST system, we should be able to interpret any message without having seen the previous one.
+
+Imagine the following conversation:
+NOT REST
+
+/search-results?q=todo
+/search-results?page=2
+/search-results?page=3
+The first request gets search results for “todo”; the second request gets the second page of that. Now imagine that you only see the second request. How would you know as a server what to do?
+
+In REST, each message stands on its own:
+REST
+
+/search-results?q=to-do
+/search-results?q=todo&page=2
+/search-results?q=todo&page=3
+Note how each request can be interpreted by itself.
+Another aspect of this, is that REST clients and servers only use standard operations, which are defined in a specification. For the Web, this specification is called HTTP.
+
+Rule 4: Connect resources through links.
+
+How can you navigate a website you've never seen before? You use links!
+You don't have to manually edit the address bar in your browser every time you go to a new page.
+
+In machine interfaces, this is not always the case. Suppose an application asks for your to-do list. It might receive the following representation:
+NOT REST
+
+/todolists/7/
+{
+  "name": "My to-dos",
+  "items": [35, 36]
+}
+Now how can you get the items of the list?
+Good question! We'd have to read the documentation for that.
+
+In REST, resources connect to each other through hyperlinks:
+REST
+
+/todolists/7/
+{
+  "name": "My to-dos",
+  "items": ["/todolists/7/items/35/", "/todolists/7/items/36/"]
+}
+Note how you don't have to read the manual to know how you can retrieve the items of your list. You just follow the links.
+
+APIs that follow those rules are REST APIs
+
+Follow those 4 rules in your interface, and you have a REST API.
+
+Unfortunately, many interfaces that label themselves as “REST” are actually something else (“HTTP interfaces”), because they don't follow all of the rules. Rules 2 and 4 are often violated, but it's not entirely uncommon to see rule 1 being violated as well. For those developers, “REST” simple means “we didn't do the XML messages thing”.
+
+This is why REST interfaces that follow all four rules are now often called “hypermedia APIs”, referring to the fourth rule.
+
+Web services based on REST Architecture are known as RESTful web services
+=======REST API ends=======

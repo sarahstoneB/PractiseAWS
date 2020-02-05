@@ -1,0 +1,26 @@
+========================Getting codebase========================
+1.clone repo in ~/repo
+========================Setup repo for static content========================
+1.watch the video
+https://www.youtube.com/watch?v=Jsmeh7q9Qv4&t=1s
+2.As we can host multiple sites/apps on single nginx instance/server, check following link for setting up separate server block
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
+3.sudo systemctl start/restart/stop/reload nginx
+========================SSL certificate========================
+watch this --> https://www.youtube.com/watch?v=m9aa7xqX67c
+=======================backup files=======================
+backups of config & other important files is created as file_name.bak
+
+=================Reverse proxy server setup=========================
+1. Created AppServer EC2, security group more secured by gicing inbound rules only for accesss to webserver and SSH from my IP, but outbound should be open for all traffic because AppServer will request to gmail smtp server and mlab's mongodb server
+2.edited /etc/nginx/sites-available/vabhy.info for follwoing block 
+location /api {
+...
+...
+}
+3. Node server doesn't need to be the ssl or https secured because nginx is hadling that part, so internal servers need not bother about https 
+=================Clone codebase on AppServer====================
+1. Similar to AppServer, but we will be running server here
+2. node installation similar to WebServer
+3. installed pm2 and then ran pm2 start bin/www
+

@@ -1,0 +1,129 @@
+>>>
+>>>
+we have to load the driver into the application i.e. loading the driver class name into the application
+>>>
+1. executeUpdate() --> return int value and used for create,insert,update,delete,drop,etc
+
+2.executeQuery() --> used for the SELECT only and return group of records i.e it returns "A result set object"
+hence String st = "SELECT 8 from emp";
+ResultSet rs = st.executeQuery(q1);
+[ResultSet points to the first record...]
+
+3.execute() --> for both the above ops
+return type is "boolean"...hence used for checking purpose only (if data is available in db or not)
+ boolean b = st.execute(anyQuery);
+>>>
+int x = stmt.executeUpdate(q1);
+where q1 may be some "create..." / "insert"...,etc queries
+[depending on the drivers it returns value after execution]
+
+		create     insert         update         drop
+type -1 driver             -1           1          row-count         -1
+type -4 driver              0            1          row-count          0  
+
+>>>conn.close(); --> to close the connection
+>>>Thread.sleep(2000); --> stops the execution for 2 secs
+
+>>>to get data from resultSet object...we use {set.getInt(1);} --> if we want first column data...if 4th column data is string --> set.getString(4);
+
+>>>type 4 drivers are DB specific...which means if we are using oracle DB..they provide their own jar file...MySQL will provide their own jar file...,etc
+HERE...we aren't using editor hence to use this jar files...we don't need to set the CLASSPATH..instead we are using the IDE hence we need to set the BUILDPATH...structs,spring,hibernate uses this BUILDPATH only...coz setting this various CLASSPATHS conflicts occurs
+
+>>>.addBatch() and .executeBatch() --> check out (no video available)
+>>>if you are inputing the query elements from the keyboard...just to check if it's ri8...you can print the query just to see of it's in ri8 format...
+
+>>>prepared statement --> check out (no video available) 
+prepared statement vs statement
+
+we have to load the driver into the application i.e. loading the driver class name into the application
+>>>
+1. executeUpdate() --> return int value and used for create,insert,update,delete,drop,etc
+
+2.executeQuery() --> used for the SELECT only and return group of records i.e it returns "A result set object"
+hence String st = "SELECT 8 from emp";
+ResultSet rs = st.executeQuery(q1);
+[ResultSet points to the first record...]
+
+3.execute() --> for both the above ops
+return type is "boolean"...hence used for checking purpose only (if data is available in db or not)
+ boolean b = st.execute(anyQuery);
+>>>
+int x = stmt.executeUpdate(q1);
+where q1 may be some "create..." / "insert"...,etc queries
+[depending on the drivers it returns value after execution]
+
+		create     insert         update         drop
+type -1 driver             -1           1          row-count         -1
+type -4 driver              0            1          row-count          0  
+
+>>>conn.close(); --> to close the connection
+>>>Thread.sleep(2000); --> stops the execution for 2 secs
+
+>>>to get data from resultSet object...we use {set.getInt(1);} --> if we want first column data...if 4th column data is string --> set.getString(4);
+
+>>>type 4 drivers are DB specific...which means if we are using oracle DB..they provide their own jar file...MySQL will provide their own jar file...,etc
+HERE...we aren't using editor hence to use this jar files...we don't need to set the CLASSPATH..instead we are using the IDE hence we need to set the BUILDPATH...structs,spring,hibernate uses this BUILDPATH only...coz setting this various CLASSPATHS conflicts occurs
+
+>>>.addBatch() and .executeBatch() --> check out (no video available)
+>>>if you are inputing the query elements from the keyboard...just to check if it's ri8...you can print the query just to see of it's in ri8 format...
+
+>>>prepared statement --> check out (no video available) 
+prepared statement vs statement
+
+7 WEB application logic ==>
+
+1.Presentation logic ==> HTML,css                
+2.for gathering data we use ==> Servlets, JSP                   |      SERVER     |  
+3.validation logics ==> JSP, JS                pt.2,3,4,6,7 =>  | <inside server> |  pt.5==> JDBC ==> |DB| 
+4.business logics ==> Servlets, JSP, Spring                     |                 |
+5.persistence logic (app to DB) ==> JDBC & Hibernate
+6.session mgmt logic ==> servlets and jsp
+7.Middle way  - for security and all (depends on company)
+=============================================================
+
+All the browsers are ex of clients(sends the requests and accepts the response)...
+servers(takes the req from clinets and processes the req and generates the response to the client back) ==> Ex. tomcat(apache), weblogic(oracle), websphere (IBM),JBoss(JBoss community),etc
+DB ==> PostgreSQL,oracle DB, MySQL, DB2,etc
+
+API contains how to use a particular product...
+
+=================JDBC notes==============
+1.all driver ex.video,audio,JDBC are maintained in a Driver manager (which are the system drivers) similarly all the DB drivers are managed using the driver manager pool
+
+2.we write the DB queries in java but DB understands only SQL queries..."DRIVER" does that conversion
+
+3.Driver categories 
+i.Type 1 - JDBC-ODBC bridge driver - JDBC calls are converted to the ODBC calls using this driver then ODBC(by microsoft) calls are converted to respective DB calls but which DB calls...DB name we provide in the application using DSN.
+ii.Type 2 - Native drivers - JDBC calls are converted to corrsponding DB calls using native drivers 
+iii.Type 3 - Network protocol driver - using middleware services
+iv.Type 4 - Thin driver (pure java driver) - directly converting JDBC calls to DB calls (DB specific)
+v.Type 5 - not very successful 
+
+We can use particular driver only when we have that driver reg into the driver manager
+[based on the URL pattern and class name we can indentify the type of driver]
+
+Prerequisite: Java (Exception handling, interface, collections,static blocks)
+
+JDBC --> stanalone app
+
+servlets,JSP --> web-app
+
+DB queries are executed by DB engine (DBE)
+
+>>>
+1.Query tokenization
+2.Query parsing
+3.Query optimization
+4.Query execution
+
+Key interfaces of JDBC -->
+1.Collections - to establish the connection
+2.Statement - to send the queries to the DB i.e executes the query
+3.prepared starements - object of statement only and used for query execution only...reduces the number of steps...and hence duff from simple statements...extends statements
+4.callable statements - extends prepared starements...to execute the procedures and functions
+5.Result set - to store the data from DB
+6.Result set meta data - data about the data called meta data...ex. tells data belongs to which column of table i.e details of table columns
+7.DB meta data - meta data of the DB...info abt the DB
+8.Save point interface -  
+
+ 

@@ -1,0 +1,244 @@
+======================================Spring notes======================================
+>>Famous for the dependency injection(also called as dependency inversion)
+>>Spring is basically all put together
+
+>> Important spring lib 
+1.commons logging
+2.spring beans
+3.spring core
+4.spring context
+
+
+>>Spring Factory Bean -->
+spring is actually container of bean...and spring behaves as a factory of beans just like tomcat is servlet container.
+___________________________________________________
+|spring container                                  |
+|                              obj                 |
+|                                                  | --> spring handles the life cycle of the objects inside it
+|              obj                       obj       |
+|                        obj                       |
+|__________________________________________________|
+^ this objects are created by the spring coz to handle them it should know them
+
+--> Bean factory gets details bean definations from spring.xml and using that it creates the spring bean which is then handed over to object 
+
+>>ApplicationContext is above BeanFactory
+Ex.BeanFactory factory = new XmlBeanFactory(new FileSystemResource("spring.xml"));
+^ instead use appContext like following
+ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml"); --> make sure spring.xml is in the src folder
+
+Initially spring was called as "Interface 21" and later changed to spring(session and hence symbol is leaf..coz spring is easy session for US ppl...temp is 5 deg. compare to winter -20 deg)
+Spring is an alternative for the EJBs (Enterprise java beans) an dspring provides the services free... no need to buy from the server
+
+spring is os independent...and just uses JDK...while EJBs need app server
+
+Loosly or tightly coupled --> relates to the compatibility of the system as we change the platform
+
+In spring we don't need to implement the interfaces...if we need interface A, class B and class C features in class D...we don't need to implement the A not extend B & C..we just take their ref as associated refs...by this association we can get B & C class features so instead of inheritance do association...then ur class will become light weight
+Class without implementing and extending is called a POJO class
+
+Spring is based on two concepts RTP(runtime polymorphism) and association (HAS-A relationship)
+RTP  --> pass object during the runtime...we can pass this runtime object using XMl file also and this is done using IoC which reads XML objects and passes the objects at runtime to the POJO classes.
+IOC provides 2 containers for this core and J2EE similarly in Spring MVC we have web containers...MVC is implemented using the IoC
+this all is for loosly coupled...
+Core(is a container) is called as Bean factory(is an interface) 
+J2EE(is a container) is called as ApplicationContext(is an interface) 
+web(is a container) is called as WebApplicationContext(is an interface)
+
+this containers do all the things coz they are configured that way...ex servlet  container does all it's life cycles
+
+Tomcat container will do following 
+1.tomcat container will read web.xml file
+2.will create the instances of the beans(servlets)
+3.will manage the life cycles of beans
+
+Similarly IoC container will do following 
+1.will read web.xml file
+2.will create the instances of the POJO class
+3.will manage the life cycles of POJO class
+4.will pass dynamic parameters to POJO class...this is where dependency injections(passing data from xml to POJO classes) comes into picture..we can pass dependencies to pojo class via xml file
+and that's(DI) the main asset of IOC containers
+
+Tomcat we start by buttons...so how we start this 3 containers...we simply create the instances/obj of them....to do this we need driver class i.e. "main" class[main class drives this objects hence called driver class]
+BeanFactory --> XMLBeanFactory()
+ApplicationContext --> ConfigurableApplicationContext() --> ClassPathXMLApplicationContext()
+WebApplicationContext --> WebApplicationContextutil() 
+(just like servlets have tomcat container class as driver class viz init(), service(), etc.)
+
+Basic req pf spring application:
+1.POJO class
+2.spring.xml or abc.xml...anyname
+we must place dtd/xsd 
+root tag --> <beans> </beans>
+<beans> 
+  <bean class="class_name" id="id"
+    configure POJO class
+  </bean>
+ </beans>
+3.driver class
+load spring.xml into driver class
+public static void main(){
+  Resource r = new ClassPathResource("spring.xml"); //--> like File class only
+  BeanFactory factory = new XmlBeanfactory(r);
+  Test t = (Test)factory.getBean("id");
+  t.class_method();
+} 
+
+scope --> singleton vs prototype --> if signleton,we create obj one time and then next time we try to create it again..it will give same obj ref...if prototype...it will create new obj each time [singleton ="true/false"]
+ 
+Instead of BeanFactory factory = new XmlBeanfactory(r); it we do ApplicationContext ap = new ClassPathXmlApplicationContext("resources/spring.xml") --> it will create the instances at the time of loading spring.xml itself
+unlike .getBeans()
+
+
+=====IOC======
+1.Container (will create the instances for the pojo classes, can manage the life cycle of pojo classes and will do DI into POJO classes)  
+  a.core          - name is --> BeanFactory --> to create the instances we need to do .getBeans()
+  b.advanced J2EE - name is --> ApplicationContext & ConfigurableApplicationContext  --> will create the instances of all the                                               objects at the time of loading if and only if scope="singleton"...else if scope="prototype" it will create instances at the time of user req i.e. .getBeans()  which means ApplicationContext with scope="prototype" behaves like BeanFactory only 
+  [dtd/ xsd used for the validation of the spring.xml file and it's done by SAX parser in the IOC container ]   
+
+Spring(IOC container) can access private constructor also...use .getDeclaredConstructor();
+
+Dependency injection:
+Ex.
+0.DAo has dependencies of driver class, username, password, etc
+1.Spring JDBC may req dependecies of JDBC template
+2.Spring ORM   --------//-------- of sessionFactory and hibernate utils
+3.Business class may have dependencies of DAO class to interact with DBs
+4.Similarly controller will have the dependencies of business class 
+all this can be passed via XMl file to pojo classes
+DI --> passing req params to pojo classes via XML file
+
+To take the inputs from IOC our class must have setters or parametrized constructors
+ONLY two types of DI --> 1.setters 2.parametrized constructors
+Interface DI uses one of this only
+
+Any type of data we can inject via XML...just by setter/parametrized constructors
+1.Primitive
+2.secondary
+3.Primitive array
+4.secondary array
+5.Collection
+
+One setter can set only one value...
+
+<constructor-arg value="" type="" index="">
+  use index attribute for data passing without any ambiguity
+  for secondary data type use "ref" instead of "value"
+</constructor-arg>
+
+We can use any number of xml files...they will get loaded into the IOC container automatically
+we can do inner beans too instead of pass by ref (IOC video - 7)
+<property>
+  <bean>
+  </bean>
+</property>
+
+For passing array values...use <list> </list>
+Ex.
+<bean>
+  <property>
+    <list> 
+      <value></value>
+      <value></value>
+      <value></value>
+    </list>
+  </property>
+</bean>
+
+SIMILARLY for ref=""
+<bean>
+  <property>
+    <list> 
+      <ref></ref>
+      <ref></ref>
+      <ref></ref>
+    </list>
+  </property>
+</bean>
+
+We can pass parent class ref to child but not vice versa...
+Ex.          List(Interface)
+                    |
+      ______________|______________
+      |                           |
+      1.vector                 1.Linked List
+                               2.Array list
+                               
+   List l = new Vector(); --> fine
+   Vector v = new Vector(); --> fine
+   ArrayList l = new List() --> not fine
+   
+To pass collections we do following
+1.List
+<list>
+      <value></value>
+      <value></value>
+      <value></value>
+</list>
+
+2.Set
+<set>
+      <value></value>
+      <value></value>
+      <value></value>
+</set>
+
+3.Map
+<map>
+  <entry key="" value="" />
+  <entry key="" value="" />
+  <entry key="" value="" />
+  .
+  .
+</map>
+
+
+We have to inject implemented objects and not the interfaces 
+Ex.in case of List...it will inject ArrayList by default
+in case of Set...it will inject LinkedHashSet by default
+in case of Map...it will inject LinkedHashMap by default
+NOW, let's say we want to inject Vector, TreeSet or HashTable...we do following
+<beans xmlns="bean-namspace" xmlns:util="util-namespace">
+  <property>
+    <util:list list-class="java.util.Vector">
+    <util:list>
+  </property>
+</beans>
+SIMILARLY we can do for set and map
+ <util:set set-class="java.util.TreeSet">
+ <util:set>
+ <util:map map-class="java.util.HashTable">
+ <util:map>
+ 
+Checkout
+<property>
+  <props>
+    <prop key=""> _value_ </prop>
+    <prop key=""> _value_ </prop>
+    .
+    .
+  </props>
+</property>
+
+To make setter DI mandatory...use attribute dependency-check=""...(it's not mandatory to call setter methods, but it's manadatory to pass the parameters to contructor properly and completely)
+
+For the compulsory dependency of one class on another class use ---> depends-on="_className_" i.e If Class A depends on Class B then it has to create the Class B before creating the Class A
+It won't work in case of mutual dependency
+
+p-namespace --> DI of setters
+c-namespace --> DI of constructors
+
+>>Autowiring (i.e. Automatic DI)
+limitation --> only for secondary data types
+byType & byName --> for setter DI
+constructor --> for constructor Di
+autodetect --> for both setter and constructor DI
+no --> by deafult
+
+@Autowired @Qualifier annotations
+
+Stereotype annotations
+1.@Controller   --> for controller classes
+2.@Repository   --> for DAO classes
+3.@Service      --> for Business classes
+4.@Component    --> for non- MVC classes

@@ -1,0 +1,96 @@
+===================apache kafka notes===================
+watch 23 tutorials of learning journal
+https://github.com/LearningJournal/ApacheKafkaTutorials - all source code
+https://www.cloudera.com/documentation/kafka/latest/topics/kafka_command_line.html
+https://dzone.com/articles/kafka-producer-and-consumer-example
+https://gist.github.com/ursuad/e5b8542024a15e4db601f34906b30bb5
+
+kafka is a messaging system where publishers = producers and subscribers = consumers
+
+Kafka cluster consists of brokers and zookeeper
+Components of kafka
+1.Producer - produces data and send it to the kafka topic
+2.Consumer - consumes data from the topic
+3.Stream processor - kafka provides stream API for stream processing engines
+4.Connectors - import/export bulk data from kafka topic to DB or any other storage system
+5.Broker -  kafka server which stores topics
+6.Cluster - group of kafka brokers with a zookeeper  
+7.Partition - when data size is larger than a storage capacity of single broker we dustribute it across partitions
+8.Offset - seq ID assigned to a message as it arrives i.e. 1st will be given id-0, 2nd will be given id-1 and so on. This offsets are immutable i.e. once given can't be changed and are local to partition i.e if a topic is dived into partition P1 & P2 each having 5-5 msgs then msgs in P1 will have offset from 0-4 and msg in P2 will have offset 0-4 only as it is local to partition
+TO IDENTIFY MSG we need 3 thing == Topic name --> Partition number --> Offset
+9.Topic - dataset/datastream in kafka
+10.Consumer groups - check below
+11.Message - small to medium sized piece of data i.e byte array which kafka understands
+Ex. for a text file message is single line or for DB table a message is a single row
+
+Zookeeper is a coordination tool in a distributed system
+and it is the zookeeper which helps in forming a kafka cluster
+
+We can start more than 1 broker on same machine but ideally we should not. Just use different config file to start different kafka brokers. 
+1.broker.id
+2.listener port
+3.log.dir
+4.log.retention.ms (default retention type) = will cleanup all the msgs older than this time
+5.log.retention.bytes = when size of partition reaches to this limit, it will do cleanup
+
+When you describe the topic
+Isr field means in-sync replicas with leader
+kafka implements fault tolenrance using topic replication, replication is set at topic level and not partition level
+rep factor = 3 means 1 original and 2 copies
+For this it follows leader-follower mechanism
+1.For this it elects a leader for every partition
+2.then this leader will find followers depending on the given rep factor, then followers will copy from leader
+3.all client interaction are done by leader i.e.receiving data from producer and sending data to consumer and sends acknowledgements in both the cases
+
+Serialization -> converting java objects to byte array 
+Deserialization -> converting byte array to java objects back
+(as kafka understands only array of bytes)
+
+Callback & acknowledgement
+1.Fire & forget - send & forget
+2.Sync send - send and wait for RecordMetaData object back in case of success or exception in case of failure
+3.Async send - send msg and provide callback to get a response later i.e we don't wait for success or faliure unlike sync send. but we have limit on how many msgs we can send w/o waiting for a response and param for this is max.in.flight.requests.per.connection - in case of aync send, send this many number of msg w/o waiting for a response.
+
+Default partitioner vs Custom partitioner --> learning journal tuts
+Hashing of key can give same result for two different keys, so be careful while using partitioner with key hashing
+
+Serializer and Deseria;izer
+When you write custom serializer/deserizlizer, if you change object schema for which you have written the serializer/deserizlizer then you have to change serializer/deserizlizer also coz it has to understand the new object but this was we won't be able to read old data after changing serializer/deserizlizer
+To avoid above problem use Generic serializer/deserizlizer i.e. Avro
+
+Producer configs
+1.acks
+0 = no acknowledgement from Leader i.e fire & forget
+1 = acknowledgement from leader but no guarantee if follwer copied from leader or not
+all = acknowledgement from leader when follower copied the msg from leader, this method will give high latency
+2.retries
+3.max.in.flight.requests.per.connection - send this many number of msg w/o waiting for a response
+if you are using async send then this param will tell how many req/msg can be send without waiting for response. this may disturb msg order coz if 1st batch fails it will go for 2nd batch, then it will retry 1st one. To maintain order use sync send and set max.in.flight.requests.per.connection = 1
+
+Consumer group 
+If your multiple producers sending data to single topic at a moderate rate then we can have 1 consumer, but if there are lots of producers and they are sending data to a topic at very high speed, then we must have multiple consumers to read that properly partitioned topic where each consumer can read from 1 partition. Kafka allows only 1 consumer to read from 1 partition coz if 2 consumer start reading from same partition it will lead to msg duplicacy i.e max number of consumers in a consumer group equals to the no of partitions of a topic
+There are many things associated with the consumer's entry/exit into/from consumer group.
+when new consumer joins it shoudl get a partition to read, when it falls down other consumer should take care of reading the partition assigned to that consumer, when it again joins back group again a partition should be given to it for reading.
+This is done by group coordinator i.e. one of the kafka brokers is elected as a group coordinator. when consumer wants to join a group it send req to coordinator. First consumer to join the group becomes the leader and remaining becomes the member of the group
+Coordinator is responsible for managing the list of group member. Whenever new consumer joins or someone exits from group coordinator will find a need to do "partition rebalancing" and leader will do the actual rebalancing and will send new partition assignment to the coordinator and coordinator will communicate new assignment to consumers.
+during rebalancing none of the consumer is allowed to read any message from topic/partition
+
+kafka offsets
+watch offset management & rebalance listener tut of learning journal
+1. Current offset
+when consumer polls for the data, kafka will keep moving the current offset so that we don't get duplicate record
+2. Commited offset
+Let's say Consumer1 processed some records, then it can commit offset on the record where it processed last record. Doing this we can avoid, reading same record again even if rebalncing happens coz we have commited offfset
+How to commit offset?
+1.Auto commit
+enable.auto.commit 
+auto.commit.interval.ms
+2.Manual commit
+commit sync
+commit async - won't retry and shoudn't retry
+
+kafka details
+https://medium.com/@durgaswaroop/a-practical-introduction-to-kafka-storage-internals-d5b544f6925f
+
+
+

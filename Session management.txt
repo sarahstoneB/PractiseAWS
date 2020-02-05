@@ -1,0 +1,4 @@
+https://medium.com/@evangow/server-authentication-basics-express-sessions-passport-and-curl-359b7456003d
+https://hacks.mozilla.org/2012/12/using-secure-client-side-sessions-to-build-simple-and-scalable-node-js-applications-a-node-js-holiday-season-part-3/
+https://dzone.com/articles/securing-nodejs-managing-sessions-in-expressjs
+Securing nodejs app --> https://lockmedown.com/user-account-requirements-express-js/
