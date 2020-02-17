@@ -1,0 +1,47 @@
+EC2 
+ Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud. It is designed to make web-scale computing easier for developers. 
+ Can spin up VMs on cloud within mins per your requirement. 
+ Revolutionary/Game changing paradigm that’s different and innovative from conventional ways(Machine procurement). 
+ 
+ Why EC2 is so important?
+  Instant provisioning 
+  Auto scaling
+  ELB 
+  Low cost 
+  Resizable(up and down)
+  AZ 
+  CloudWatch monitoring, etc 
+
+EC2 Pricing options 
+ On demand-Pay/Hour model. 
+ Reserved- 1/3 yr contract for a fixed capacity of EC2 instances. Low cost per hour charges than on demand. 
+ Spot- bid the price for instance-for requirements where start and end date is not a concern. 
+ Dedicated-Physical EC2 servers available as pay/hour fashion.(use existing server bound licenses).
+
+ Types of EC2 instance 
+  Amazon EC2 instances are grouped into 5 families:
+ General Purpose, 
+ Compute Optimized, 
+ Memory Optimized,
+ GPU, 
+ and Storage Optimized instances.
+ 
+ General Purpose Instances have memory to CPU ratios suitable for most general purpose applications and come with fixed performance (M4 and M3 instances) or burstable performance (T2); 
+ Compute Optimized instances (C4 and C3 instances) have proportionally more CPU resources than memory (RAM) and are well suited for scale out compute-intensive applications and High Performance Computing (HPC) workloads;
+ Memory Optimized Instances (R3 and R4 instances) offer larger memory sizes for memory-intensive applications, including database and memory caching applications; 
+ GPU Compute instances (P2) take advantage of the parallel processing capabilities of NVIDIA Tesla GPUs for high performance parallel computing; 
+ GPU Graphics instances (G2) offer high- performance 3D graphics capabilities for applications using OpenGL and DirectX; 
+ Storage Optimized Instances include I2 instances that provide very high, low latency, I/O capacity using SSD-based local instance storage for I/O-intensive applications and D2, Dense-storage instances, that provide high storage density and sequential I/O performance for data warehousing, Hadoop and other data-intensive applications. 
+ When choosing instance types, you should consider the characteristics of your application with regards to resource utilization (i.e. CPU, Memory, Storage) and select the optimal instance family and instance size.
+ EBS 
+  Elastic Block storage lets you to create storage volumes and attach it with ec2 instance. 
+  Block based 
+  Can install software's or used for storage. 
+  EBS volumes are placed on specific AZ and replicated automatically to withstand single point of failure. 
+  Cannot attach 1 EBS volume to multiple EC2 instances-For this EFS can be used. 
+EBS Volume types: 
+ General Purpose SSD(GP2)-Upto 10,000 IOPS 
+ Provisioned IOPS SSD(IO1)-More than 10,000 IOPS 
+ Throughput optimized HDD-magnetic volume(ST1)-Frequent access of data 
+ Cold HDD-Magnetic Volume(SC1)-IA data 
+ Magnetic(Standard)-Lowest cost,IA bootable storage.
